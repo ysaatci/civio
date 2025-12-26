@@ -1,0 +1,27 @@
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: civio_postgres
+    environment:
+      POSTGRES_USER: civio_user
+      POSTGRES_PASSWORD: civio_password
+      POSTGRES_DB: civio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U civio_user -d civio_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - civio_network
+
+volumes:
+  postgres_data:
+
+networks:
+  civio_network:
+    driver: bridge
