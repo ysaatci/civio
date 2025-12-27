@@ -20,7 +20,7 @@ def create_listing(
     return db_listing
 
     
-@router.get(f"/", response_model = list[ListingResponse], status_code = 200)
+@router.get("/", response_model = list[ListingResponse], status_code = 200)
 def get_listings(
     skip: int = 0,
     limit: int = 100,
